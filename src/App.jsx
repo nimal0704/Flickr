@@ -23,7 +23,10 @@ const App = () => {
          []);
 
   return (
-      <div className="wrapper">
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+          gap: "16px"}}>
         <header>
           <h1>Your next <span className="text-gradient">favorite</span> movie, in seconds.</h1>
         </header>
