@@ -29,7 +29,7 @@ const App = () => {
         </header>
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         <h2 style={{ color: "#fff", marginBottom: "20px", marginTop:"20px" }}>🔥 Trending</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "25px", marginBottom:"20px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", marginBottom:"20px" }}>
           {trending.map(movie => (
             <MovieCard
               key={movie.id}
@@ -39,7 +39,7 @@ const App = () => {
           ))}
         </div>
         <h2 style={{ color: "#fff", marginBottom: "20px", marginTop:"20px" }}>🍿 Playing Now</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "25px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
           {nowPlaying.map(movie => (
             <MovieCard
               key={movie.id}
