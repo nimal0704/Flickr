@@ -1,4 +1,4 @@
-import { IMG_BASE } from "../../api/tmdb";
+import { IMG_BASE } from "../api/tmdb";
 
 function MovieCard({movie, onClick}){
   const year = movie.release_date?.split("-")[0] || "N/A";
