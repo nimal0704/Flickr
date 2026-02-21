@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import Search from './components/Search.jsx'
-import MovieCard from './components/MovieCard.jsx'
+import MovieCard from './components/movie-card/MovieCard.jsx'
 import { useEffect } from "react";
 import { getTrending, getNowPlaying } from "./api/tmdb";
 
@@ -23,16 +23,13 @@ const App = () => {
          []);
 
   return (
-      <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-          gap: "16px"}}>
+      <div className="wrapper">
         <header>
           <h1>Your next <span className="text-gradient">favorite</span> movie, in seconds.</h1>
         </header>
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         <h2 style={{ color: "#fff", marginBottom: "20px", marginTop:"20px" }}>🔥 Trending</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", marginBottom:"20px" }}>
+        <div className="grid">
           {trending.map(movie => (
             <MovieCard
               key={movie.id}
@@ -42,7 +39,7 @@ const App = () => {
           ))}
         </div>
         <h2 style={{ color: "#fff", marginBottom: "20px", marginTop:"20px" }}>🍿 Playing Now</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        <div className="grid">
           {nowPlaying.map(movie => (
             <MovieCard
               key={movie.id}
