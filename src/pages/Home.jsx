@@ -4,7 +4,7 @@ import Search from '../components/Search.jsx'
 import MovieSection from '../components/MovieSection.jsx'
 import MovieCard from '../components/MovieCard.jsx'
 import useDebounce from "../hooks/useDebounce.js"
-import { getTrending, getNowPlaying, getTopRated, getUpcoming, searchMovies } from "../api/tmdb.js";
+import { getTrending, getNowPlaying, getTopRated, getUpcoming, searchMovies, getByLanguage } from "../api/tmdb.js";
 import { useNavigate } from 'react-router-dom'
 
 
@@ -16,6 +16,7 @@ const Home = () => {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [topRated, setTopRated] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
+  const [byLang, setByLang] = useState([]);
 
   const navigate = useNavigate();
   
@@ -26,12 +27,15 @@ const Home = () => {
       getTrending(),
       getNowPlaying(),
       getTopRated(),
-      getUpcoming()
-    ]).then(([trendData, nowData, topData, upData]) => {
+      getUpcoming(),
+      getByLanguage()
+    ]).then(([trendData, nowData, topData, upData, langData]) => {
       setTrending(trendData.results);
       setNowPlaying(nowData.results);
       setTopRated(topData.results);
       setUpcoming(upData.results);
+      setByLang(langData.results);
+
     }).catch(console.error);
   }, []);
 
@@ -92,6 +96,8 @@ const Home = () => {
           <MovieSection title="🍿 Now Playing"  movies={nowPlaying} onMovieClick={handleMovieClick} />
           <MovieSection title="🔝 Top Rated"    movies={topRated}   onMovieClick={handleMovieClick} />
           <MovieSection title="🗓️ Coming Soon"  movies={upcoming}   onMovieClick={handleMovieClick} />
+          <MovieSection title="Malyalam Movies"  movies={byLang}   onMovieClick={handleMovieClick} />
+          
         </>
       )}
     </div> 

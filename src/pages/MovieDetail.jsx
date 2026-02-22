@@ -74,7 +74,7 @@ const MovieDetail = () => {
   // ── LOADING ──
   if (loading) return (
     <div className="min-h-screen bg-primary flex items-center justify-center">
-      <div className="w-12 h-12 border-4 border-white/10 border-t-[#fb0505] rounded-full animate-spin" />
+      <div className="w-12 h-12 border-4 border-white/10 border-t-[#7405fb] rounded-full animate-spin" />
     </div>
   );
 

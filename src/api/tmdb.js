@@ -22,3 +22,4 @@ export const getMovieVideos = (id) => tmdb(`/movie/${id}/videos`);
 export const getWatchProviders = (id) => tmdb(`/movie/${id}/watch/providers`);
 export const getSimilarMovies = (id) => tmdb(`/movie/${id}/similar`);
 export const getMovieCredits = (id) => tmdb(`/movie/${id}/credits`);
+export const getByLanguage = () => tmdb("/discover/movie?with_original_language=ml");
