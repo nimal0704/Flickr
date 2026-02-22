@@ -20,3 +20,5 @@ export const searchMovies = (query) => tmdb("/search/movie", { query });
 export const getMovieDetails = (id) => tmdb(`/movie/${id}`);
 export const getMovieVideos = (id) => tmdb(`/movie/${id}/videos`);
 export const getWatchProviders = (id) => tmdb(`/movie/${id}/watch/providers`);
+export const getSimilarMovies = (id) => tmdb(`/movie/${id}/similar`);
+export const getMovieCredits = (id) => tmdb(`/movie/${id}/credits`);
