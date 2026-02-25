@@ -9,10 +9,14 @@ import {
   IMG_BASE,
   IMG_ORIGINAL
 } from "../api/tmdb";
+import { useAuth } from "../context/AuthContext";
+import { db } from "../firebase";
+import { doc, setDoc, deleteDoc, getDoc } from "firebase/firestore";
 
 const MovieDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [movie, setMovie] = useState(null);
   const [trailer, setTrailer] = useState(null);
@@ -48,27 +52,35 @@ const MovieDetail = () => {
       setLoading(false);
     });
 
-    const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
-    setInWatchlist(watchlist.some(m => m.id === Number(id)));
+    const ref = doc(db, "watchlists", user.uid, "movies", id);
+    getDoc(ref).then(snap => setInWatchlist(snap.exists()));
   }, [id]);
 
-  const handleWatchlist = () => {
-    const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
-    if (inWatchlist) {
-      const updated = watchlist.filter(m => m.id !== movie.id);
-      localStorage.setItem("watchlist", JSON.stringify(updated));
-      setInWatchlist(false);
-    } else {
-      watchlist.push({
-        id: movie.id,
-        title: movie.title,
-        poster_path: movie.poster_path,
-        vote_average: movie.vote_average,
-        release_date: movie.release_date
-      });
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
-      setInWatchlist(true);
-    }
+  const handleWatchlist = async () => {
+  // not logged in → prompt to sign in
+  if (!user) {
+    alert("Please sign in to save to watchlist!");
+    return;
+  }
+
+  const ref = doc(db, "watchlists", user.uid, "movies", String(movie.id));
+
+  if (inWatchlist) {
+    // REMOVE
+    await deleteDoc(ref);
+    setInWatchlist(false);
+   } else {
+    // ADD
+    await setDoc(ref, {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path || null,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+      addedAt: new Date(),
+    });
+    setInWatchlist(true);
+   }
   };
 
   // ── LOADING ──
